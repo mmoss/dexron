@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+
+script_dir = File.expand_path('~/Library/Application\ Support/Transmission/scripts')
+
+puts "Installing dexron for Transmissions to #{script_dir}"
+FileUtils.mkdir_p script_dir
+`curl -o "#{script_dir}" https://raw.github.com/mmoss/dexron/master/dexron`
+
+puts "- Setting dexron to run automatically when a file completes downloading"
+`defaults write org.m0k.transmission DoneScriptEnabled -bool TRUE`
+`defaults write org.m0k.transmission DoneScriptPath "#{script_dir}/dexron"`
+
+puts "Installation complete.\nRestart Transmission for dexron to run automatically.\n"
