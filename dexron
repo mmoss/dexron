@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+
+base_directory = ENV['TR_TORRENT_DIR'] || ARGV[0]
+
+def rename_files(file)
+
+  if File.directory? file
+    puts "Renaming files in #{file}"
+    Dir.glob(File.join(file, '*')).
+      sort_by { rand }.
+      each {|f| rename_files(f)}
+
+  else
+    filename = File.basename(file)
+    new_filename  = filename.
+      gsub('_', ' ').
+      gsub(/(?:\[.*\])*(.*)(?:[^\S]\[.*\]).*\.(.*)/i, '\1.\2')
+
+    puts "... renaming #{filename}\n\tto: #{new_filename}"
+    FileUtils.mv(file, File.join(File.dirname(file), new_filename))
+  end
+end
+
+rename_files(base_directory)
