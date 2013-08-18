@@ -4,21 +4,19 @@ A simple ruby script for cleaning up filenames of files downloaded using Transmi
 
 ## Installing
 
-Open up the Terminal application, then copy and paste the following:
+Open up the Terminal application and run the following command:
 
-``
+```
+ruby -e "$(curl -fsSL https://raw.github.com/mmoss/dexron/master/install)"
+```
 
-To actually have the script run automatically when transfers are complete please see the __Configuring__ section below.
+More information can be found on their [wiki page on Scripts](https://trac.transmissionbt.com/wiki/Scripts).
 
 ## Updating
 
 To update your dexron script simple reinstall using the above installation method.
 
-## Configuring
-
-To configure the Transmission bit torrent client check out their [wiki page on Scripts](https://trac.transmissionbt.com/wiki/Scripts).
-
-# TODO
+## TODO
 
 - Automatically organize files into directories based on common filename prefixes.
 - Add documentation for folks using Transmission on unix distros.
