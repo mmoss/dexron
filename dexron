@@ -16,7 +16,8 @@ def rename_files(file)
     filename = File.basename(file)
     new_filename  = filename.
       gsub('_', ' ').
-      gsub(/(?:\[.*\])*(.*)(?:[^\S]\[.*\]).*\.(.*)/i, '\1.\2')
+      gsub(/(?:\[.*\])*(.*)(?:[^\S]\[.*\]).*\.(.*)/i, '\1.\2').
+      strip
 
     puts "... renaming #{filename}\n\tto: #{new_filename}"
     FileUtils.mv(file, File.join(File.dirname(file), new_filename))

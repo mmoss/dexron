@@ -1,14 +1,29 @@
 #!/usr/bin/env ruby
 require 'fileutils'
 
-script_dir = File.expand_path('~/Library/Application\ Support/Transmission/scripts')
+script_dir = File.expand_path('~/Library/Application Support/Transmission/scripts')
+script_file = "#{script_dir}/dexron"
 
 puts "Installing dexron for Transmissions to #{script_dir}"
+
+if File.exists? script_file
+  puts "\t- Cleaning up old version of dexron"
+  FileUtils.rm script_file
+end
+
+puts "\t- Installing dexron for Transmissions to #{script_dir}"
 FileUtils.mkdir_p script_dir
-`curl -o "#{script_dir}" https://raw.github.com/mmoss/dexron/master/dexron`
+`curl -o "#{script_file}" https://raw.github.com/mmoss/dexron/master/dexron`
+FileUtils.chmod 0777, script_file
 
-puts "- Setting dexron to run automatically when a file completes downloading"
+puts "\t- Setting dexron to run automatically when a file completes downloading"
 `defaults write org.m0k.transmission DoneScriptEnabled -bool TRUE`
-`defaults write org.m0k.transmission DoneScriptPath "#{script_dir}/dexron"`
+`defaults write org.m0k.transmission DoneScriptPath "#{script_file}"`
 
-puts "Installation complete.\nRestart Transmission for dexron to run automatically.\n"
+puts "\t- Restarting Transmission"
+`open -a "Transmission"` # bring to front in case the user needs to confirm a prompt
+`osascript -e 'tell application "Transmission" to quit'`
+sleep 7
+`open -a "Transmission"`
+
+puts "Installation complete\n\n"
