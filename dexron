@@ -19,8 +19,10 @@ def rename_files(file)
       gsub(/(?:\[.*\])*(.*)(?:[^\S]\[.*\]).*\.(.*)/i, '\1.\2').
       strip
 
-    puts "\t- renaming #{filename} to: #{new_filename}"
-    FileUtils.mv(file, File.join(File.dirname(file), new_filename))
+    if filename != new_filename
+      puts "\t- renaming #{filename} to: #{new_filename}"
+      FileUtils.mv(file, File.join(File.dirname(file), new_filename))
+    end
   end
 end
 
