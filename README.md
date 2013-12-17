@@ -1,4 +1,4 @@
-# What this project is
+# What this project is...
 
 A simple ruby script for cleaning up filenames of files downloaded using Transmission. If you have any issues feel free to file issues and submit pull requests to add features and fix bugs.
 
